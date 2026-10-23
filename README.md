@@ -1,66 +1,129 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# RentGrid — Equipment Rental Marketplace
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+RentGrid is a web application designed to simplify equipment rentals by bringing different categories of rental products into one centralized marketplace. It aims to help customers discover equipment, compare rental prices, check date-based availability, and make reservations, while helping rental businesses manage inventory and bookings.
 
-## About Laravel
+**Project Status:** 🚧 Under Development
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Problem Statement
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Rental services are often fragmented across category-specific platforms, making it difficult for customers to compare prices and check equipment availability in one place. RentGrid aims to address this problem by providing a unified marketplace for discovering and renting equipment.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Key Features
 
-## Learning Laravel
+### Implemented
+- Equipment marketplace homepage
+- Equipment listings with rental prices
+- Equipment details pages
+- Database integration for retrieving equipment information
+- Equipment search by name, category, and description
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Planned
+- Date-based equipment availability
+- Reservation and cancellation management
+- Inventory tracking for individual equipment units
+- Double-booking prevention
+- Rental business management dashboard
+- Multi-channel inventory synchronization
+- Booking and inventory analytics
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Technology Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend:** PHP, Laravel
+- **Frontend:** HTML, CSS, JavaScript, Blade
+- **Database:** MySQL
+- **Development Tools:** Visual Studio Code, Composer, Git, GitHub
 
-## Laravel Sponsors
+## How It Works
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. Customers browse available equipment through the marketplace.
+2. They view equipment details and compare rental prices.
+3. They select rental dates and request reservations as booking functionality is developed.
+4. Rental businesses will be able to manage equipment inventory and bookings through a centralized system.
 
-### Premium Partners
+## Technical Challenges
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+A major engineering goal is preventing double bookings when multiple customers request the same equipment for overlapping dates.
 
-## Contributing
+The planned reservation engine will use database transactions, row-level locking, and date-overlap validation to ensure reliable inventory allocation.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Future Enhancements
 
-## Code of Conduct
+- REST API integrations and webhook-based updates
+- Multi-channel inventory synchronization
+- Failed synchronization monitoring and retry mechanisms
+- Role-based access control and secure API authentication
+- Automated testing and deployment
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Local Setup
 
-## Security Vulnerabilities
+### Prerequisites
+- PHP and Composer
+- MySQL
+- Node.js and npm, if frontend dependencies require them
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Installation
 
-## License
+1. Clone the repository:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```bash
+   git clone https://github.com/VeerendraSD/rentgrid.git
+   cd rentgrid
+   ```
+
+2. Install PHP dependencies:
+
+   ```bash
+   composer install
+   ```
+
+3. Create your environment file:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   On Windows PowerShell, use:
+
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+
+4. Generate the application key:
+
+   ```bash
+   php artisan key:generate
+   ```
+
+5. Create a MySQL database named `rentgrid` and configure the database credentials in `.env`.
+
+6. Run database migrations:
+
+   ```bash
+   php artisan migrate
+   ```
+
+7. Start the development server:
+
+   ```bash
+   php artisan serve
+   ```
+
+8. Open the local URL displayed in your terminal, usually `http://127.0.0.1:8000`.
+
+If frontend dependencies are required, run `npm install` and `npm run dev` in a separate terminal.
+
+## Project Goals
+
+RentGrid aims to simplify equipment rentals for customers and rental businesses while exploring reliable inventory management, reservation processing, and multi-channel availability synchronization.
+
+This project is being developed as a hands-on learning experience in full-stack web development, database design, business workflow analysis, and problem-solving.
+
+## Author
+
+**Veerendra S. D.**
+
+GitHub: [VeerendraSD](https://github.com/VeerendraSD)
+
+---
+
+*RentGrid is an ongoing project. Features listed under Planned or Future Enhancements are not yet represented as completed functionality.*

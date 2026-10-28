@@ -65,7 +65,7 @@ The planned reservation engine will use database transactions, row-level locking
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/VeerendraSD/rentgrid.git
+   git clone https://github.com/VeerendraSD/rentgrid-platform.git
    cd rentgrid
    ```
 

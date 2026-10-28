@@ -2,31 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Shop;
+use App\Models\Booking;
+use App\Models\Unit;
 
 class Item extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'shop_id',
-        'name',
-        'category',
-        'description',
-        'daily_price',
-    ];
-
-    protected function casts(): array
-    {
-        return [
-            'daily_price' => 'decimal:2',
-        ];
-    }
-
-    public function shop(): BelongsTo
+    public function shop(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Shop::class);
     }
@@ -36,13 +21,31 @@ class Item extends Model
         return $this->hasMany(Unit::class);
     }
 
-    public function bookings(): HasMany
+    /**
+     * Return the total number of active units for this item.
+     */
+    public function totalQuantity(): int
     {
-        return $this->hasMany(Booking::class);
+        return $this->units()
+            ->where('status', 'active')
+            ->count();
     }
 
-    public function syncJobs(): HasMany
+    /**
+     * Return the number of units that are NOT booked (or are booked but outside a given date range).
+     */
+    public function availableQuantity(string $startDate, string $endDate): int
     {
-        return $this->hasMany(SyncJobLog::class);
+        // Units that have a conflicting booking (held or confirmed) in the period.
+        $conflictingUnitIds = Booking::whereIn('status', ['held', 'confirmed'])
+            ->whereDate('start_date', '<=', $endDate)
+            ->whereDate('end_date', '>=', $startDate)
+            ->pluck('unit_id')
+            ->toArray();
+
+        return $this->units()
+            ->where('status', 'active')
+            ->whereNotIn('id', $conflictingUnitIds)
+            ->count();
     }
 }

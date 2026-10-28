@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'unit_id',
         'item_id',
@@ -22,17 +20,17 @@ class Booking extends Model
         'external_ref',
         'hold_expires_at',
         'total_price',
+        'invoice_sent_at',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'start_date' => 'date',
-            'end_date' => 'date',
-            'hold_expires_at' => 'datetime',
-            'total_price' => 'decimal:2',
-        ];
-    }
+    protected $dates = ['hold_expires_at', 'invoice_sent_at'];
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'hold_expires_at' => 'datetime',
+        'invoice_sent_at' => 'datetime',
+        'total_price' => 'decimal:2',
+    ];
 
     public function unit(): BelongsTo
     {
@@ -42,5 +40,15 @@ class Booking extends Model
     public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class);
+    }
+
+    public function units(): BelongsToMany
+    {
+        return $this->belongsToMany(Unit::class, 'booking_unit');
+    }
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
     }
 }

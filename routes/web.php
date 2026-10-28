@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\InvoiceController;
 
 // Public marketplace
 Route::get('/', [MarketplaceController::class, 'index'])
@@ -18,11 +21,21 @@ Route::post('/equipment/{item}/book', [BookingController::class, 'store'])
 Route::get('/booking/{booking}/success', [BookingController::class, 'success'])
     ->name('marketplace.booking-success');
 
-// Protected dashboard
-Route::middleware(['auth', 'role:owner,staff'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+// Protected shop dashboard and booking management (auth removed as requested)
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
 
-require __DIR__.'/auth.php';
+Route::get('/dashboard/bookings', [DashboardController::class, 'bookings'])
+    ->name('dashboard.bookings');
+
+Route::patch('/dashboard/bookings/{booking}', [DashboardController::class, 'updateBooking'])
+    ->name('dashboard.bookings.update');
+
+// Guest cancellation – signed URL for security
+Route::get('/booking/{booking}/cancel', [BookingController::class, 'cancel'])
+    ->name('marketplace.booking-cancel')
+    ->middleware('signed');
+
+// Invoice download (PDF)
+Route::get('/booking/{booking}/invoice', [InvoiceController::class, 'download'])
+    ->name('marketplace.invoice');

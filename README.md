@@ -2,7 +2,6 @@
 
 RentGrid is a web application designed to simplify equipment rentals by bringing different categories of rental products into one centralized marketplace. It aims to help customers discover equipment, compare rental prices, check date-based availability, and make reservations, while helping rental businesses manage inventory and bookings.
 
-**Project Status:** 🚧 Under Development
 
 ## Problem Statement
 

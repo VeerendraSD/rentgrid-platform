@@ -117,13 +117,3 @@ If frontend dependencies are required, run `npm install` and `npm run dev` in a 
 RentGrid aims to simplify equipment rentals for customers and rental businesses while exploring reliable inventory management, reservation processing, and multi-channel availability synchronization.
 
 This project is being developed as a hands-on learning experience in full-stack web development, database design, business workflow analysis, and problem-solving.
-
-## Author
-
-**Veerendra S. D.**
-
-GitHub: [VeerendraSD](https://github.com/VeerendraSD)
-
----
-
-*RentGrid is an ongoing project. Features listed under Planned or Future Enhancements are not yet represented as completed functionality.*
